@@ -1,0 +1,1 @@
+inserer les catégories dans la base de données.
