@@ -445,7 +445,7 @@ Reprehenderit nemo quod tempore doloribus ratione distinctio quis quidem vitae s
     <?php 
 
 // 3- Préaparation de la requete
-$query = "SELECT * FROM `produits`  ";
+$query = "SELECT * FROM `produits` WHERE `status`=3  ";
 
 //echo $query;
 
