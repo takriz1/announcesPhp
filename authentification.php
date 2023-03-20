@@ -10,9 +10,16 @@ $conn = mysqli_connect('localhost','root','','project');
 
 // 3- préparation de la requette
 
-$query = " SELECT * FROM `users` WHERE email='$mail' and motdepasse='$pass' and role='annonceur' ";
+$query = " SELECT * FROM `users` WHERE email='$mail' and motdepasse='$pass' ";
 
-
+if ($conn->query($query) === TRUE) {
+    echo "WELCOME";
+    header("location:index.php");
+} else {
+    header("location:login.php?error=1");
+    echo "ERROR! USERNAME OR PASSWORD IS INCORRECT";
+    
+};
 
 // 5-- Exécution de la requette
 $exec = mysqli_query($conn,$query);
@@ -35,9 +42,9 @@ if($num == 1){
 	$_SESSION['telephone'] = $tel;
     $_SESSION['id_u'] = $id_user;
 	header("location:account-myads.php");
-}else{
+} /*else{
 	header("location:index.php?error=1");
 	echo "Merci de vérifier vos accés !!!!";
-}
+} */
 
 ?>

@@ -2,7 +2,6 @@
 
 include "connexion.php";
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -343,16 +342,39 @@ Electronics <span class="category-counter">(9)</span>
 <div class="row">
 
     <?php 
-    
+    // Préaparation de la requete categories
+    try {
+    // Get Id Category from Url
+        if(isset($_GET['idcategory'])){
+            $idcategory =$_GET['idcategory'];
+        }
+        // 3- Préaparation de la requete
+   $query      = "SELECT * FROM `categories` Where `id_c`=$idcategory "; 
+  
+  } catch (Exception $query) {
+      echo 'Caught exception: ',  $query->getMessage(), "\n";
+  }
+
+//  Exécution de la requete cat
+$exec = mysqli_query($conn,$query);
+
+    while($array = mysqli_fetch_array($exec)){
+
+$id_c 		    = $array['id_c'];
+$libelle_c 		= $array['libelle_c'];
+
+
+    }
+
 // 3- Préaparation de la requete
-$query = "SELECT * FROM `produits`  ";
+$query_cat = "SELECT * FROM `produits` where `id_cat`=$id_c  ";
 
 //echo $query;
 
 
 // 4- Exécution de la requete
-$exec = mysqli_query($conn,$query);
-while($array = mysqli_fetch_array($exec)){
+$exec_cat = mysqli_query($conn,$query_cat);
+while($array = mysqli_fetch_array($exec_cat)){
 
 $id_p 			= $array['id_p'];
 $libelle_p 		= $array['libelle_p'];
@@ -360,16 +382,7 @@ $prix_p 		= $array['prix_p'];
 $description_p 	= $array['description_p'];
 $id_cat 		= $array['id_cat'];
     
-// Préaparation de la requete categories
-$query_cat      = "SELECT * FROM `categories` where id_c=$id_cat ";
-//  Exécution de la requete cat
-$exec_cat = mysqli_query($conn,$query_cat);
-   
-    while($array = mysqli_fetch_array($exec_cat)){
 
-$libelle_c 		= $array['libelle_c'];
-
-    }
         
 $query_img 		= "SELECT * FROM `images_prd` where id_prd=$id_p ";
 $exec_img 		= mysqli_query($conn,$query_img);
